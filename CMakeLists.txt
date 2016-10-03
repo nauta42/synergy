@@ -340,6 +340,26 @@ if (WIN32)
 	# /Ob2 - expand inline functions (auto-inlining).
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD /O2 /Ob2")
 
+	ADD_CUSTOM_COMMAND(
+		TARGET synergys
+		POST_BUILD
+		COMMAND "mt.exe" -manifest \"${CMAKE_SOURCE_DIR}\\res\\dpiaware.manifest\" -inputresource:\"$<TARGET_FILE:${TARGET_TARGETNAME}>\"\;\#1 -outputresource:\"$TARGET_FILE:${TARGET_TARGETNAME}>\"\;\#1
+		COMMENT "Adding display aware manifest..."
+	)
+
+	ADD_CUSTOM_COMMAND(
+		TARGET synergyc
+		POST_BUILD
+		COMMAND "mt.exe" -manifest \"${CMAKE_SOURCE_DIR}\\res\\dpiaware.manifest\" -inputresource:\"$<TARGET_FILE:${TARGET_TARGETNAME}>\"\;\#1 -outputresource:\"$TARGET_FILE:${TARGET_TARGETNAME}>\"\;\#1
+		COMMENT "Adding display aware manifest..."
+	)
+
+	ADD_CUSTOM_COMMAND(
+		TARGET synergyd
+		POST_BUILD
+		COMMAND "mt.exe" -manifest \"${CMAKE_SOURCE_DIR}\\res\\dpiaware.manifest\" -inputresource:\"$<TARGET_FILE:${TARGET_TARGETNAME}>\"\;\#1 -outputresource:\"$TARGET_FILE:${TARGET_TARGETNAME}>\"\;\#1
+		COMMENT "Adding display aware manifest..."
+	)
 endif()
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "IRIX")
