@@ -313,7 +313,7 @@ else() # not-unix
 		/D_CRT_SECURE_NO_WARNINGS
 		/DVERSION=\"${VERSION}\"
 	)
-	
+
 	if (MSVC_VERSION EQUAL 1600)
 		set(SLN_FILENAME "${CMAKE_CURRENT_BINARY_DIR}/synergy.sln")
 		if (EXISTS "${SLN_FILENAME}" )
@@ -321,6 +321,10 @@ else() # not-unix
 		endif()
 	endif()
 
+endif()
+
+if (WIN32)
+	set(CMAKE_SHARED_LINKER_FLAGS /MANIFEST:NO)
 endif()
 
 add_subdirectory(src)
@@ -334,7 +338,7 @@ if (WIN32)
 	# /D _BIND_TO_CURRENT_VCLIBS_VERSION - TODO: explain why.
 	# /D _SECURE_SCL=1 - find bugs with iterators.
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX /FR /MP /D _BIND_TO_CURRENT_VCLIBS_VERSION=1 /D _SECURE_SCL=1")
-	
+
 	# /MD - use multi-core libraries.
 	# /O2 - get the fastest code.
 	# /Ob2 - expand inline functions (auto-inlining).
